@@ -5,9 +5,9 @@ import Cat from "./Cat";
 import Breed from "./Breed";
 
 function App() {
-  //kaciu isedimas visu 
+  //kaciu isvedimas visu 
   
-  const [breeds, setBreeds] = useState([])
+  const [search, setSearch] = useState(false)
 
   useEffect(()=>{
    try{
@@ -19,8 +19,6 @@ function App() {
     console.log(msg)
    }
   },[])
-
-  
 
   return (
     <>

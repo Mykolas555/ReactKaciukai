@@ -1,11 +1,9 @@
 
-const Breed = ()=>{
+const Breed = (props)=>{
 
     return(
         <>
-            <datalist>
-            {breeds?.map((breed)=><value>{breed.name}</value> )}
-            </datalist>
+        <option value={props.id}>{props.name}</option>
         </>
     )
 }

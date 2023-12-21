@@ -1,15 +1,12 @@
-import { useEffect } from "react";
 import { useState } from "react";
+import { useEffect } from "react";
 
 const Search = ()=>{
 
-    //kaciu paveiksliuku isvedimas
+ //kaciu paveiksliuku isvedimas
 
-  useState [search, setSearch] = useState([])
+  useState [breeds, setBreeds] = useState('')
 
-  const handleSearch = (data)=>{
-      setSearch(data)
-  }
 
   useEffect(()=>{
       if(search){
@@ -27,10 +24,8 @@ const Search = ()=>{
 
     return(
         <>
-            <input type="text" onSearch={handleSearch}/>
-            <datalist>
-            {search?.map((search)=><value>{search.name}</value>)}
-            </datalist>
+            <input type="text"/>
+            
         </>
     )
 }
