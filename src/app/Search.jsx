@@ -1,33 +1,44 @@
-import { useState } from "react";
-import { useEffect } from "react";
+import React, { useState, useEffect } from "react";
+import Breed from "./Breed";
+import Cat from "./Cat";
 
-const Search = ()=>{
+const Search = (props) => {
+  const [breeds, setBreeds] = useState([]);
+  const [searchValue, setSearchValue] = useState("");
+  const [suggestions, setSuggestions] = useState([]);
 
- //kaciu paveiksliuku isvedimas
+  const handleSearch = (e) => {
+    const value = e.target.value;
+    setSearchValue(value);
+    const filteredBreeds = breeds.filter((breed) =>
+      breed.name.toLowerCase().includes(value.toLowerCase())
+    );
+    setSuggestions(filteredBreeds);
+    props.onSearch(value);
+  };
 
-  useState [breeds, setBreeds] = useState('')
+  useEffect(() => {
+    fetch("https://api.thecatapi.com/v1/breeds")
+      .then((response) => response.json())
+      .then((data) => setBreeds(data))
+      .catch((error) => console.error(error));
+  }, []);
 
+  return (
+    <>
+      <input
+        type="text"
+        value={searchValue}
+        onChange={handleSearch}
+        list="breeds"
+      />
+      <datalist id="breeds">
+        {suggestions.map((breed) => (
+          <Breed key={breed.id} id={breed.id} name={breed.name} />
+        ))}
+      </datalist>
+    </>
+  );
+};
 
-  useEffect(()=>{
-      if(search){
-        try{
-          fetch(`https://api.thecatapi.com/v1/images/search?breed_ids=${search}`)
-          .then(response=>response.json())
-          .then(data=>setCats(data))
-        }catch(msg){
-          console.log(msg)
-        }
-      }
-    },[search])
-
-    console.log(search)
-
-    return(
-        <>
-            <input type="text"/>
-            
-        </>
-    )
-}
-
-export default Search
+export default Search;
